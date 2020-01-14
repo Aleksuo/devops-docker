@@ -1,0 +1,5 @@
+FROM node
+
+COPY . .
+RUN npm install
+CMD FRONT_URL=http://localhost:5000 npm start
