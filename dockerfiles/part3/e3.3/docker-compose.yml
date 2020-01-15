@@ -1,0 +1,29 @@
+version: '3.5'
+
+services:
+    frontend:
+        build: ./front
+        ports: 
+            - 5000:5000
+    backend:
+        build: ./back
+        restart: unless-stopped
+        ports:
+            - 8000:8000
+        environment:
+            - REDIS=redis
+            - DB_USERNAME=app
+            - DB_PASSWORD=test
+            - DB_HOST=postgres
+    redis:
+        image: redis
+        ports:
+            - "6379:6379"
+    postgres:
+      image: postgres
+      restart: always
+      volumes:
+        - ./data:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_USER=app
+        - POSTGRES_PASSWORD=test
